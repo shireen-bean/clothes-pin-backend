@@ -1,0 +1,5 @@
+given_name,surname,gender,description,picture
+'Shireen','Kheradpey','f','example description here','example pathway image here'
+'Jason','Frishman','m','i dont have a description','picture path'
+'Jake','Walsh','m','BU med student','path'
+'Annie','Lane','f','Engineer at GE Healthcare',null

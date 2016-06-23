@@ -1,4 +1,13 @@
-# This file should contain all the record creation needed to experiment with
+require 'csv'
+
+Profile.transaction do
+  CSV.foreach 'data/profiles.csv', headers: true do |profile|
+    Profile.create(profile.to_hash)
+  end
+end
+
+
+ # This file should contain all the record creation needed to experiment with
 # your app during development.
 #
 # The data can then be loaded with the rake db:examples (or created alongside
