@@ -6,6 +6,13 @@ Profile.transaction do
   end
 end
 
+Shirt.transaction do
+  CSV.foreach 'data/shirts.csv', headers: true do |shirt|
+    Shirt.create(shirt.to_hash)
+  end
+end
+
+
 
  # This file should contain all the record creation needed to experiment with
 # your app during development.

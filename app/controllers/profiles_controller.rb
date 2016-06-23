@@ -1,5 +1,6 @@
-class ProfilesController < ApplicationController
+class ProfilesController < ProtectedController
   before_action :set_profile, only: [:show, :update, :destroy]
+  # before_action :authenticate
 
   # GET /profiles
   # GET /profiles.json
@@ -18,6 +19,7 @@ class ProfilesController < ApplicationController
   # POST /profiles
   # POST /profiles.json
   def create
+      # @profile = Profile.new(user_id: current_user)
     @profile = Profile.new(profile_params)
 
     if @profile.save
@@ -54,6 +56,12 @@ class ProfilesController < ApplicationController
     end
 
     def profile_params
-      params.require(:profile).permit(:given_name, :surname, :gender, :description, :picture)
+      params.require(:profile).permit(:given_name, :surname, :gender, :description, :picture, :user_id)
+    end
+
+    def query_string_authenticate
+      token = params[:token]
+      @current_user = User.find_by token: token
+      head :unauthorized unless current_user
     end
 end

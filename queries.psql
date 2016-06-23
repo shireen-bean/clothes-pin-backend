@@ -1,0 +1,19 @@
+curl --include --request POST http://localhost:3000/shirts \
+--header "Content-Type: application/json" \
+--data '{
+      "shirt": {
+          "top_name": "Shireens first shirt",
+          "tags": "striped blue ",
+          "color": "green"
+      }
+}'
+
+
+curl --include --request POST http://localhost:3000/profiles \
+--header "Content-Type: application/json" \
+--data '{
+      "profile": {
+          "given_name": "Shireens",
+          "surname": "Kheradpey "
+      }
+}'

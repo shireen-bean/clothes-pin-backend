@@ -2,5 +2,5 @@
 class User < ActiveRecord::Base
   include Authentication
   has_many :examples
-  belongs_to :profile
+  has_one :profile
 end
