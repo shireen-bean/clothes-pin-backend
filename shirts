@@ -1,0 +1,646 @@
+CREATE DATABASE sql-crud;
+CREATE DATABASE "sql-crud";
+\c "sql-crud"
+\l
+\c library-api_development
+\c sql-crud
+\d
+\d people
+\d
+\d pets
+DROP TABLE pets
+\d
+DROP TABLE cities
+\d
+\d
+DROP TABLE "cities"
+\d
+DROP TABLE cities
+;
+\d
+DROP TABLE cities;
+\d
+\d
+\d cities
+\d pets
+\d people
+\d
+\d cities
+SELECT*FROM pets
+\d pets
+SELECT * FROM pets
+;
+SELECT * FROM pets;
+SELECT * FROM cities;
+DROP TABLE cities;
+SELECT * FROM cities;
+\d
+\d cities
+SELECT * FROM cities
+;
+SELECT * FROM pets
+;
+SELECT * FROM pets
+;
+SELECT * FROM cities
+;
+SELECT surename FROM people
+;
+SELECT surname FROM people
+;
+SELECT  * FROM people WHERE gender='f';
+SELECT * FROM people WHERE born_on BETWEEN '1989-06-14' AND '1995-06-14' 
+;
+SELECT * FROM people WHERE born_on BETWEEN '1995-01-14' AND '1995-06-14'; 
+SELECT * FROM people WHERE born_on BETWEEN '1995-01-14' AND '1995-07-14'; 
+SELECT * FROM people WHERE born_on BETWEEN '1995-01-14' AND '1995-07-14' GROUP BY gender;
+SELECT * FROM people WHERE born_on BETWEEN '1995-01-14' AND '1995-07-14' AND GROUP BY gender;
+SELECT * FROM people WHERE born_on BETWEEN '1995-01-14' AND '1995-07-14' GROUP BY gender;
+SELECT * FROM people WHERE born_on BETWEEN '1995-01-14' AND '1995-07-14' ORDER BY gender;
+SELECT * FROM people WHERE born_on BETWEEN '1995-01-14' AND '1995-07-14' ORDER BY gender,height;
+SELECT * FROM people WHERE born_on BETWEEN '1995-01-14' AND '1995-07-14' ORDER BY gender DESC,height ASC;
+SELECT * FROM cities
+;
+SELECT COUNT(country) * FROM cities GROUP BY country;
+SELECT COUNT(country) as count  FROM cities GROUP BY country;
+SELECT COUNT(country) as count  FROM cities GROUP BY city;
+SELECT COUNT(country) as count  FROM cities GROUP BY name;
+SELECT country ,COUNT(country) as count  FROM cities GROUP BY country;
+SELECT kind, COUNT(kind) as kind FROM pets GROUP BY kind;
+SELECT kind, COUNT(kind) as kind FROM pets WHERE born_on < 2010-01-01 GROUP BY kind;
+SELECT kind, COUNT(kind) as kind FROM pets WHERE born_on > 2010-01-01 GROUP BY kind;
+SELECT kind, COUNT(kind) as kind FROM pets WHERE born_on < '2010-01-01' GROUP BY kind;
+SELECT kind, COUNT(kind) as count FROM pets WHERE born_on < '2010-01-01' GROUP BY kind;
+ALTER TABLE cities ALTER COLUMN longitude TYPE numberic(5,8);
+ALTER TABLE cities ALTER COLUMN longitude TYPE numeric(5,8);
+ALTER TABLE cities ALTER COLUMN longitude TYPE numeric(8,5);
+\d cities
+ALTER TABLE cities ALTER COLUMN latitude TYPE numeric(7,5);
+\d cities
+SELECT * FROM cities
+;
+\d
+\l
+\l
+\l
+\d
+\d albums
+\dg
+\d albums
+bundle exec rake db:seed
+\d
+\d albums
+SELECT * FROM albums
+;
+;
+\d
+\d albums
+SELECT * FROM albums
+;
+SELECT * FROM albums;
+\d
+\d licensees
+CREATE DATABASE "sql-join";
+\d
+\l
+DROP DATABASE "sql-join";
+CREATE DATABASE "sql-join" TEMPLATE "sql-crud";
+\c sql-join;
+\d pets
+\c ShireenKheradpey
+DROP DATABASE sql-join;
+DROP DATABASE "sql-join";
+CREATE DATABASE "sql-join";
+\c "sql-join";
+CREATE TABLE people (
+id ineger PRIMARY KEY,
+surname varchar,
+given_name varchar,
+gender varchar,
+height integer,
+weight integer,
+born_on date);
+CREATE TABLE people (
+id integer PRIMARY KEY,
+surname varchar,
+given_name varchar,
+gender varchar,
+height integer,
+weight integer,
+born_on date);
+\d people
+CREATE TABLE cities (
+id integer PRIMARY KEY,
+population integer,
+name varchar,
+country varchar,
+region varchar,
+longitude decimal,
+latitude decimal);
+\d cities
+ALTER TABLE cities DROP COLUMN id;
+\d cities
+ALTER TABLE cities ADD COLUMN id SERIAL PRIMARY KEY;
+\d cities
+ALTER TABLE people DROP COLUMN id;
+\d people
+ALTER TABLE people ADD COLUMN id SERIAL PRIMARY KEY;
+\d people
+ALTER TABLE people ADD COLUMN city_id INTEGER REFERENCES cities;
+\d cities
+\copy cities(population,name,country,region,longitude,latitude) FROM 'data/cities.csv' WITH (HEADER true, FORMAT csv);
+\copy people(surname,given_name,gender,height,weight,born_on) FROM 'data/people.csv' WITH (HEADER true, FORMAT csv);
+\d cities
+SELECT * FROM cities;
+SELECT * FROM people;
+\d cities
+\d people
+SELECT * FROM cities WHERE name=Boston
+;
+SELECT * FROM cities WHERE name='BOSTON';
+SELECT * FROM cities WHERE name='Boston';
+UPDATE people SET city_id=23 WHERE id=1;
+SELECT * FROM people
+;
+SELECT*FROM people WHERE id=1;
+SELECT p.given_name, p.surname, c.name AS born_in FROM people AS p INNER JOIN cities AS c ONp.city=c.id;
+SELECT p.given_name, p.surname, c.name AS born_in FROM people AS p INNER JOIN cities AS c ON p.city=c.id;
+SELECT p.given_name, p.surname, c.name AS born_in FROM people AS p INNER JOIN cities AS c ON p.city_id=c.id;
+INSERT INTO people (surname,given_name,gender, height, weight, born_on, city_id) VALUES ('Kheradpey','Shireen','f',60,'1993-05-18',23);
+INSERT INTO people (surname,given_name,gender, height, weight, born_on, city_id) VALUES ('Kheradpey','Shireen','f',60,100,'1993-05-18',23);
+SELECT * FROM people WHERE given_name='Shireen';
+SELECT p.given_name, p.surname, c.id * AS born_in FROM people as p INNER JOIN cities as c ON p.city_id=c.id;
+SELECT p.given_name, p.surname, c.id AS born_in FROM people as p INNER JOIN cities as c ON p.city_id=c.id;
+SELECT p.given_name, p.surname, c.id AS born_in FROM people as p INNER JOIN cities as c ON p.city_id=c.id WHERE given_name='Shireen';
+SELECT * FROM cities WHERE name='Honolulu';
+UPDATE people SET city_id=51 WHERE surname='Kheradpey';
+INSERT INTO people (surname,given_name,gender, height, weight, born_on, city_id) VALUES ('Rebolledo','Ruben','m',72,185,'1992-01-01',23);
+SELECT * from cities where name='Rahway';
+UPDATE people SET city_id=209 WHERE given_name='Ruben';
+SELECT * FROM cities WHERE name='Beverly';
+INSERT INTO people (surname,given_name,gender, height, weight, born_on, city_id) VALUES ('Sullivan','Erin','f',68,120,'1992-01-01',23);
+SELECT * FROM people where given_name='Erin';
+SELECT p.given_name, p.surname, c.id AS born_in FROM people as p INNER JOIN cities as c ON p.city_id=c.id;
+SELECT p.given_name, p.surname, p.gender, c.name AS born_in FROM people AS p INNER JOIN cities as c ON p.city_id=c.id;
+\d
+\q
+\d
+bundle exec rake db:seed
+\d
+SELECT * FROM albums;
+SELECT * FROM albums
+;
+SELECT * FROM songs;
+SELECT * FROM people;
+\d cities
+\d cities
+SELECT * FROM cities
+;
+select * from people;
+select * from pets;
+select * from Pets;
+select * from Pet;
+\d people
+\d cities
+\d people
+\d people
+\d people
+\d people
+CREATE DATABASE "sql-join-tables"
+\c sql-join-tabes
+\c sql-join-tables
+\c "sql-join-tables:
+\l
+CREATE DATABASE "sql-join-tables";
+CREATE DATABASE "sql-join-tables";
+\c "sql-join-tables";
+CREATE TABLE people (
+id SERIAL PRIMARY KEY,
+surname varchar,
+given_name varchar
+);
+CREATE TABLE skills (
+id SERIAL PRIMARY KEY,
+language varchar,
+framework varchar
+);
+\d 
+\copy skills(language,framework) FROM 'data/skills.csv' WITH (HEADER true, FORMAT csv)
+SELECT * skills;
+SELECT * FROM skills;
+CREATE TABLE ENDORSEMENTS (
+id SERIAL PRIMARY KEY,
+endorser REFERENCES people,
+endorsee REFERENCES people,
+skill_id REFERENCES skills);
+CREATE TABLE ENDORSEMENTS (
+id SERIAL PRIMARY KEY,
+endorser integer REFERENCES people,
+endorsee integer REFERENCES people,
+skill_id integer REFERENCES skills);
+INSERT INTO people(surname, given_name) VALUES ("Shireen","Kheradpey");
+INSERT INTO people(surname, given_name) VALUES ('Shireen','Kheradpey');
+SELECT * FROM people;
+INSERT INTO people(surname, given_name) VALUES ('Jason','Frishman');
+INSERT INTO people(surname, given_name) VALUES ('Jeff','Horn');
+SELECT * FROM people;
+SELECT * FROM skills;
+SELECT * FROM endorsements;
+\d endorsements;
+INSERT INTO endorsements(endorser, endorsee, skill_id) VALUES (2,1,12);
+INSERT INTO endorsements(endorser, endorsee, skill_id) VALUES (2,1,1);
+INSERT INTO endorsements(endorser, endorsee, skill_id) VALUES (1,3,5);
+SELECT * FROM endorsements;
+SELECT endorser.given_name, endorser.surname, endorsee.given_name, endorsee.surname, skills.language, skills.framework
+FROM endorsements AS e
+INNER JOIN people as p
+ON endorsee.id = e.endorsee
+INNER JOIN people AS endorser
+ON endorser.id = e.endorser
+INNER JOIN skills AS s
+ON s.id = e.skill_id;
+SELECT 
+endorser.given_name, endorser.surname, 
+endorsee.given_name, endorsee.surname,
+s.language, s.framework
+FROM endorsements AS e
+INNER JOIN people as p
+ON endorsee.id = e.endorsee
+INNER JOIN people AS endorser
+ON endorser.id = e.endorser
+INNER JOIN skills AS s
+ON s.id = e.skill_id;
+SELECT
+endorser.given_name, endorser.surname,
+endorsee.given_name, endorsee.surname,
+s.language, s.framework
+FROM endorsements AS e
+INNER JOIN people as endorsee
+ON endorsee.id = e.endorsee
+INNER JOIN people AS endorser
+ON endorser.id = e.endorser
+INNER JOIN skills AS s
+ON s.id = e.skill_id;
+SELECT
+endorser.surname, endorser.given_name,
+endorsee.surname, endorsee.given_name, 
+s.language, s.framework
+FROM endorsements AS e
+INNER JOIN people as endorsee
+ON endorsee.id = e.endorsee
+INNER JOIN people AS endorser
+ON endorser.id = e.endorser
+INNER JOIN skills AS s
+ON s.id = e.skill_id;
+SELECT
+endorser.surname AS endorser_surname, endorser.given_name AS endorser_given_name,
+endorsee.surname endorsee_surname, endorsee.given_name endorsee_given_name, 
+s.language, s.framework
+FROM endorsements AS e
+INNER JOIN people as endorsee
+ON endorsee.id = e.endorsee
+INNER JOIN people AS endorser
+ON endorser.id = e.endorser
+INNER JOIN skills AS s
+ON s.id = e.skill_id;
+SELECT
+endorser.surname AS endorser_given_name, endorser.given_name AS endorser_surname,
+endorsee.surname endorsee_given_name, endorsee.given_name endorsee_surname, 
+s.language, s.framework
+FROM endorsements AS e
+INNER JOIN people as endorsee
+ON endorsee.id = e.endorsee
+INNER JOIN people AS endorser
+ON endorser.id = e.endorser
+INNER JOIN skills AS s
+ON s.id = e.skill_id;
+CREATE TABLE companies (
+  id SERIAL PRIMARY KEY,
+  name varchar,
+  city varchar,
+  region varchar,
+  country varchar,
+);
+CREATE TABLE companies (
+  id SERIAL PRIMARY KEY,
+  name varchar,
+  city varchar,
+  region varchar,
+  country varchar);
+\copy companies(name,city,region,country) FROM 'data/companies.csv' WITH (HEADER true, FORMAT csv)
+SELECT * FROM companies;
+CREATE TABLE jobs (
+  id SERIAL PRIMARY KEY,
+  employee integer REFERENCES people,
+  employer integer REFERENCES companies,
+  start_date date,
+  end_date date
+);
+DROP TABLE people;
+DROP TABLE CASCADE people
+INSERT INTO people(given_name, surname) VALUES ('Erin','Sullivan');
+INSERT INTO people(given_name, surname) VALUES ('Ruben','Ronado');
+INSERT INTO people(given_name, surname) VALUES ('Brian','Berzenelli');
+SELECT * FROM people;
+\d jobs
+INSERT INTO jobs (employee,employer,state_date,end_date) VALUES (4,17,'2001-01-01',2005-01-01');
+
+'
+)
+;
+INSERT INTO jobs(employee,employer,state_date,end_date) VALUES(4,17,'2001-01-01','2005-01-01');
+INSERT INTO jobs(employee,employer,start_date,end_date) VALUES(4,17,'2001-01-01','2005-01-01');
+SELCT * FROM jobs;
+INSERT INTO jobs(employee,employer,start_date,end_date) VALUES(5,13,'2001-01-01','2005-01-01');
+INSERT INTO jobs(employee,employer,start_date,end_date) VALUES(1,8,'2001-01-01','2005-01-01');
+INSERT INTO jobs(employee,employer,start_date,end_date) VALUES(2,22,'2001-01-01','2005-01-01');
+SELECT
+employee.surname AS employee_surname, employee.given_name AS employee_given_name,
+employer.name AS company,
+j.start_date, j.end_date
+FROM jobs AS j
+INNER JOIN people as employee
+ON employee.id = j.employee
+INNER JOIN companies AS employer
+ON employer.id = j.employer;
+INSERT INTO jobs(employee,employer,start_date,end_date) VALUES(5,13,'2001-01-01',null);
+SELECT
+employee.surname AS employee_surname, employee.given_name AS employee_given_name,
+employer.name AS company,
+j.start_date, j.end_date
+FROM jobs AS j
+INNER JOIN people as employee
+ON employee.id = j.employee
+INNER JOIN companies AS employer
+ON employer.id = j.employer;
+INSERT INTO jobs(employee,employer,start_date,end_date) VALUES(3,20,'2007-01-01',null);
+INSERT INTO jobs(employee,employer,start_date,end_date) VALUES(1,20,'2009-09-01',null);
+INSERT INTO jobs(employee,employer,start_date,end_date) VALUES(5,6,'2009-09-01',null);
+SELECT
+employee.surname AS employee_surname, employee.given_name AS employee_given_name,
+employer.name AS company,
+j.start_date, j.end_date
+FROM jobs AS j
+INNER JOIN people as employee
+ON employee.id = j.employee
+INNER JOIN companies AS employer
+ON employer.id = j.employer;
+INSERT INTO people(given_name, surname) VALUES ('Will','Johnson');
+INSERT INTO people(given_name, surname) VALUES ('Jeff','Sneeden');
+INSERT INTO people(given_name, surname) VALUES ('Marvin','Klein');
+INSERT INTO people(given_name, surname) VALUES ('Harry','Potter');
+SELECT * FROM people;
+INSERT INTO jobs(employee,employer,start_date,end_date) VALUES(8,12,'2005-09-01','2010-05-19');
+INSERT INTO jobs(employee,employer,start_date,end_date) VALUES(9,11,'1990-09-01','2010-05-19');
+INSERT INTO jobs(employee,employer,start_date,end_date) VALUES(10,19,'1990-09-01','2011-05-19');
+INSERT INTO jobs(employee,employer,start_date,end_date) VALUES(7,14,'1992-09-05','2011-07-19');
+INSERT INTO jobs(employee,employer,start_date,end_date) VALUES(7,3,'2000-09-05','2008-07-19');
+INSERT INTO jobs(employee,employer,start_date,end_date) VALUES(7,18,'2012-10-05','2013-07-19');
+INSERT INTO jobs(employee,employer,start_date,end_date) VALUES(7,9,'2014-10-05','2016-07-19');
+SELECT * FROM jobs;
+SELECT
+employee.surname AS employee_surname, employee.given_name AS employee_given_name,
+employer.name AS company,
+j.start_date, j.end_date
+FROM jobs AS j
+INNER JOIN people as employee
+ON employee.id = j.employee
+INNER JOIN companies AS employer
+ON employer.id = j.employer;
+SELECT
+employee.surname AS employee_surname, employee.given_name AS employee_given_name WHERE given_name='Will',
+employer.name AS company,
+j.start_date, j.end_date
+employer.name AS company,
+j.start_date, j.end_date
+FROM jobs AS j
+INNER JOIN people as employee
+ON employee.id = j.employee
+INNER JOIN companies AS employer
+ON employer.id = j.employer
+ORDER BY start_date;
+SELECT
+employee.surname AS employee_surname, employee.given_name AS employee_given_name,
+employer.name AS company,
+j.start_date, j.end_date
+employer.name AS company,
+j.start_date, j.end_date
+FROM jobs AS j
+INNER JOIN people as employee
+ON employee.id = j.employee
+WHERE employee.given_name='Will'
+INNER JOIN companies AS employer
+ON employer.id = j.employer
+ORDER BY start_date;
+SELECT
+employee.surname AS employee_surname, employee.given_name AS employee_given_name,
+employer.name AS company,
+j.start_date, j.end_date,
+employer.name AS company,
+j.start_date, j.end_date
+FROM jobs AS j
+INNER JOIN people as employee
+ON employee.id = j.employee
+WHERE employee.given_name='Will'
+INNER JOIN companies AS employer
+ON employer.id = j.employer
+ORDER BY start_date
+;
+ELECT
+employee.surname AS employee_surname, employee.given_name AS employee_given_name,
+employer.name AS company,
+j.start_date, j.end_date,
+employer.name AS company,
+j.start_date, j.end_date
+FROM jobs AS j
+INNER JOIN people as employee
+ON employee.id = j.employee
+WHERE employee.given_name='Will',
+INNER JOIN companies AS employer
+ON employer.id = j.employer
+ORDER BY start_date
+;
+SELECT
+employee.surname AS employee_surname, employee.given_name AS employee_given_name,
+employer.name AS company,
+j.start_date, j.end_date,
+employer.name AS company,
+j.start_date, j.end_date
+FROM jobs AS j
+INNER JOIN people as employee
+ON employee.id = j.employee
+WHERE employee.given_name='Will',
+INNER JOIN companies AS employer
+ON employer.id = j.employer
+ORDER BY start_date;
+SELECT
+employee.surname AS employee_surname, employee.given_name AS employee_given_name,
+employer.name AS company,
+j.start_date, j.end_date,
+employer.name AS company,
+j.start_date, j.end_date
+FROM jobs AS j
+INNER JOIN people as employee
+ON employee.id = j.employee
+WHERE employee.given_name='Will'
+INNER JOIN companies AS employer
+ON employer.id = j.employer
+ORDER BY start_date;
+SELECT
+employee.surname AS employee_surname, employee.given_name AS employee_given_name,
+employer.name AS company,
+j.start_date, j.end_date,
+employer.name AS company,
+j.start_date, j.end_date
+FROM jobs AS j
+INNER JOIN people as employee
+ON employee.id = j.employee
+WHERE employee.id=7
+INNER JOIN companies AS employer
+ON employer.id = j.employer
+ORDER BY start_date;
+\d
+\d
+SELECT ALL from cities
+;
+SELECT * FROM cities;
+\d
+select * from addresses
+;
+\d addresses
+SELECT * FROM people;
+SELECT * FROM addresses;
+\d
+\d companies
+select * from companies;
+CREATE DATABASE "sql-references";
+\d
+\c "sql-references"
+CREATE TABLE doctors(
+  id SERIAL PRIMARY KEY,
+  surname varchar,
+  given_name varchar,
+  gender varchar,
+  born_on date,
+  specialty varchar
+);
+CREATE TABLE patients(
+  id SERIAL PRIMARY KEY,
+  surname varchar,
+  given_name varchar,
+  gender varchar,
+  born_on date,
+  insurance varchar
+);
+CREATE TABLE appointments(
+  date text,
+  time text,
+  comment text,
+  doctor integer REFERENCES doctors,
+  patient integer REFERENCES patients
+)
+;
+\d sql-references
+\d
+\copy doctors(surname,given_name,gender,born_on,specialty) FROM 'data/doctors.csv' WITH (HEADER true, FORMAT csv)
+\copy doctors(surname,given_name,gender,born_on,insurance) FROM 'data/patients.csv' WITH (HEADER true, FORMAT csv)
+\copy patients(surname,given_name,gender,born_on,insurance) FROM 'data/patients.csv' WITH (HEADER true, FORMAT csv)
+SELECT * FROM patients WHERE given_name=Marsha;
+SELECT * FROM patients WHERE given_name='Marsha';
+SELECT * FROM doctors WHERE given_name='Vicky';
+SELECT * FROM doctors;
+INSERT INTO appointments(date,time,comment,doctor,patient)
+VALUES('August 12, 2016','10am','Hilton', 4, 8);
+select * from appointments;
+select * from patients
+;
+INSERT INTO appointments(date,time,comment,doctor,patient)
+VALUES('August 17, 2016','1pm',null, 6, 5),
+('August 12, 2016','10am',null, 6, 8),
+('August 17, 2016','1pm',null, 4, 7);
+SELECT *
+FROM appointments
+WHERE doctor=6;
+SELECT p.given_name AS patient, a.time AS appointment_time
+FROM appointments as a
+INNER JOIN patients as p
+WHERE a.doctor=6;
+SELECT p.given_name AS patient, a.time AS appointment_time
+FROM appointments as a
+INNER JOIN patients as p
+ON doctor=6;
+SELECT p.given_name AS patient, a.time AS appointment_time
+FROM appointments as a
+INNER JOIN patients as p
+ON a.doctor=doctor.id;
+SELECT p.given_name AS patient, a.time AS appointment_time
+FROM appointments as a
+INNER JOIN patients as p
+ON a.doctor=doctors.id;
+SELECT * FROM appointments WHERE doctor=6;
+SELECT * FROM appointments WHERE patient=8;
+SELECT * from users
+;
+\d
+\d
+\d users
+SELECT * from users
+;
+\d
+\d
+\d profiles
+\d profiles
+select*from profiles
+;
+\s
+\d
+\d profiles
+\d users
+\d
+\d profiles
+\d users
+select * from users
+;
+\d profiles
+select*from users;
+select*from users;
+\d profile
+\d profiles
+\d
+\d shirts
+\d shirts
+\d shirts
+\d profiles
+select * from profiles
+;
+\d shirts
+\d profiles
+select * from users
+;
+select * from users;
+select * from users;
+select * from profiles;
+select * from profiles;
+select * from users;
+select * from users;
+select * from users;
+select * from profiles;
+select * from profiles;
+select * from profiles;
+select * from profiles;
+\d profiles
+select * from profiles.
+select * from profiles;
+select * from profiles;
+select * from users;
+select * from users;
+select * from profiles;
+select * from ;
+select * from profiles;
+select * from profiles;
+\d shirts
+\d
+select * from shirts;
+select * from shirts;
+select * from shirts;
+\s shirts
