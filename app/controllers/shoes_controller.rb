@@ -1,5 +1,6 @@
 class ShoesController < ApplicationController
   before_action :set_shoe, only: [:show, :update, :destroy]
+  before_action :authenticate, only: [ :update, :create, :destroy]
 
   # GET /shoes
   # GET /shoes.json

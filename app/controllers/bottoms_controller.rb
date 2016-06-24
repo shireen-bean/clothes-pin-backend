@@ -1,5 +1,6 @@
 class BottomsController < ApplicationController
   before_action :set_bottom, only: [:show, :update, :destroy]
+  before_action :authenticate, only: [ :update, :create, :destroy]
 
   # GET /bottoms
   # GET /bottoms.json

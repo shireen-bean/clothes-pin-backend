@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160624151133) do
+ActiveRecord::Schema.define(version: 20160624152602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,22 @@ ActiveRecord::Schema.define(version: 20160624151133) do
   end
 
   add_index "examples", ["user_id"], name: "index_examples_on_user_id", using: :btree
+
+  create_table "outfits", force: :cascade do |t|
+    t.date     "date"
+    t.string   "description"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "shirt_id"
+    t.integer  "bottom_id"
+    t.integer  "shoe_id"
+    t.integer  "accessory_id"
+  end
+
+  add_index "outfits", ["accessory_id"], name: "index_outfits_on_accessory_id", using: :btree
+  add_index "outfits", ["bottom_id"], name: "index_outfits_on_bottom_id", using: :btree
+  add_index "outfits", ["shirt_id"], name: "index_outfits_on_shirt_id", using: :btree
+  add_index "outfits", ["shoe_id"], name: "index_outfits_on_shoe_id", using: :btree
 
   create_table "profiles", force: :cascade do |t|
     t.string   "given_name"
@@ -109,6 +125,10 @@ ActiveRecord::Schema.define(version: 20160624151133) do
   add_foreign_key "accessories", "profiles"
   add_foreign_key "bottoms", "profiles"
   add_foreign_key "examples", "users"
+  add_foreign_key "outfits", "accessories"
+  add_foreign_key "outfits", "bottoms"
+  add_foreign_key "outfits", "shirts"
+  add_foreign_key "outfits", "shoes"
   add_foreign_key "profiles", "users"
   add_foreign_key "shirts", "profiles"
   add_foreign_key "shoes", "profiles"

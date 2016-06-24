@@ -1,6 +1,6 @@
 class ShirtsController < ApplicationController
   before_action :set_shirt, only: [:show, :update, :destroy]
-  before_action :authenticate, only: [:update, :show, :create, :destroy]
+  before_action :authenticate, only: [:update, :create, :destroy]
 
   # GET /shirts
   # GET /shirts.json
