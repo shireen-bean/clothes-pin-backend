@@ -54,6 +54,6 @@ class BottomsController < ApplicationController
     end
 
     def bottom_params
-      params.require(:bottom).permit(:bottom_name, :brand, :color, :business, :leg_length, :type, :image)
+      params.require(:bottom).permit(:bottom_name, :brand, :color, :business, :leg_length, :description, :image)
     end
 end
