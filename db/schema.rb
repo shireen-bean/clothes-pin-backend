@@ -11,10 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160624142052) do
+ActiveRecord::Schema.define(version: 20160624145225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accessories", force: :cascade do |t|
+    t.string   "accessory_name"
+    t.string   "brand"
+    t.string   "color"
+    t.string   "description"
+    t.string   "tags"
+    t.string   "image"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "profile_id"
+  end
+
+  add_index "accessories", ["profile_id"], name: "index_accessories_on_profile_id", using: :btree
 
   create_table "bottoms", force: :cascade do |t|
     t.string   "bottom_name"
@@ -80,6 +94,7 @@ ActiveRecord::Schema.define(version: 20160624142052) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["token"], name: "index_users_on_token", unique: true, using: :btree
 
+  add_foreign_key "accessories", "profiles"
   add_foreign_key "bottoms", "profiles"
   add_foreign_key "examples", "users"
   add_foreign_key "profiles", "users"
