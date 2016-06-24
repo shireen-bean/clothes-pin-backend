@@ -3,4 +3,5 @@ class Profile < ActiveRecord::Base
   has_many :shirts, inverse_of: :profile
   has_many :bottoms, inverse_of: :profile
   has_many :accessories, inverse_of: :profile
+  has_many :shoes, inverse_of: :profile
 end

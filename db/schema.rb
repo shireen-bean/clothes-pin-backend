@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160624145225) do
+ActiveRecord::Schema.define(version: 20160624151133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,18 @@ ActiveRecord::Schema.define(version: 20160624145225) do
 
   add_index "shirts", ["profile_id"], name: "index_shirts_on_profile_id", using: :btree
 
+  create_table "shoes", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "image"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "profile_id"
+    t.string   "color"
+  end
+
+  add_index "shoes", ["profile_id"], name: "index_shoes_on_profile_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",           null: false
     t.string   "token",           null: false
@@ -99,4 +111,5 @@ ActiveRecord::Schema.define(version: 20160624145225) do
   add_foreign_key "examples", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "shirts", "profiles"
+  add_foreign_key "shoes", "profiles"
 end

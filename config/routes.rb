@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :shoes, except: [:new, :edit]
   resources :accessories, except: [:new, :edit]
   resources :bottoms, except: [:new, :edit]
   resources :shirts, except: [:new, :edit]

@@ -24,6 +24,11 @@ Accessory.transaction do
   end
 end
 
+Shoe.transaction do
+  CSV.foreach 'data/shoes.csv', headers: true do |shoe|
+    Shoe.create(shoe.to_hash)
+  end
+end
 
 # Bottom.create([
 #   { bottom_name: 'name', brand: 'Brand', color: 'red', business: true, leg_length: 'mid', description: 'shorts', image: 'path'}
