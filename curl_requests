@@ -1,0 +1,15 @@
+curl --include --request POST http://localhost:3000/bottoms \
+--header "Content-Type: application/json" \
+--data '{
+    "bottom": {
+        "bottom_name": "name",
+        "brand": "brand",
+        "color": "red",
+        "business": true,
+        "leg_length": "mid",
+        "type": "shorts",
+        "image": "pathtoimage"
+    }
+}'
+
+bottom_name, :brand, :color, :business, :leg_length, :type, :image

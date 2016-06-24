@@ -12,6 +12,15 @@ Shirt.transaction do
   end
 end
 
+Bottom.transaction do
+  CSV.foreach 'data/bottoms.csv', headers: true do |bottom|
+    Bottom.create(bottom.to_hash)
+  end
+end
+
+# Bottom.create([
+#   { bottom_name: 'name', brand: 'Brand', color: 'red', business: true, leg_length: 'mid', description: 'shorts', image: 'path'}
+#   ])
 
 
  # This file should contain all the record creation needed to experiment with

@@ -4,9 +4,10 @@ class CreateBottoms < ActiveRecord::Migration
       t.string :bottom_name
       t.string :brand
       t.string :color
-      t.string :business
-      t.string :length
-      t.string :type
+      t.boolean :business
+      t.string :leg_length
+      t.string :description
+      t.string :image
 
       t.timestamps null: false
     end
