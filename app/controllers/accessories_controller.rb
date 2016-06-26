@@ -55,6 +55,6 @@ class AccessoriesController < ApplicationController
     end
 
     def accessory_params
-      params.require(:accessory).permit(:accessory_name, :brand, :color, :description, :tags, :image)
+      params.require(:accessory).permit(:accessory_name, :brand, :color, :description, :tags, :image, :profile_id)
     end
 end

@@ -55,6 +55,6 @@ class ShoesController < ApplicationController
     end
 
     def shoe_params
-      params.require(:shoe).permit(:name, :description, :image)
+      params.require(:shoe).permit(:name, :description, :image, :profile_id)
     end
 end
