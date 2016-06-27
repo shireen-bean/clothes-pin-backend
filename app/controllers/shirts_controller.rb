@@ -55,6 +55,6 @@ class ShirtsController < ApplicationController
     end
 
     def shirt_params
-      params.require(:shirt).permit(:top_name, :brand, :color, :pattern, :sleeves, :tags, :profile_id)
+      params.require(:shirt).permit(:top_name, :brand, :color, :business, :pattern, :sleeves, :tags, :image, :profile_id)
     end
 end
