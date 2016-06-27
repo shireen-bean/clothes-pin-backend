@@ -13,3 +13,17 @@ curl --include --request POST http://localhost:3000/bottoms \
 }'
 
 bottom_name, :brand, :color, :business, :leg_length, :type, :image
+
+
+curl --include --request POST http://localhost:3000/outfits \
+--header "Content-Type: application/json" \
+--data '{
+    "outfit": {
+        "shirt_id": "5",
+        "bottom_id": "brand",
+        "description": "red",
+        "accessory_id": true,
+        "date_wear": "mid",
+        "profile_id": "5"
+    }
+}'

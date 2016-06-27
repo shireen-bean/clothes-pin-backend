@@ -1,5 +1,6 @@
 class OutfitsController < ApplicationController
   before_action :set_outfit, only: [:show, :update, :destroy]
+  before_action :authenticate, only: [:update, :create, :destroy]
 
   # GET /outfits
   # GET /outfits.json
@@ -54,6 +55,6 @@ class OutfitsController < ApplicationController
     end
 
     def outfit_params
-      params.require(:outfit).permit(:date, :description, :shirt_id, :bottom_id, :accessory_id, :shoe_id, :profile_id)
+      params.require(:outfit).permit(:date_wear, :description, :shirt_id, :bottom_id, :accessory_id, :shoe_id, :profile_id)
     end
 end
