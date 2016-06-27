@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160624152602) do
+ActiveRecord::Schema.define(version: 20160627150402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,10 +63,12 @@ ActiveRecord::Schema.define(version: 20160624152602) do
     t.integer  "bottom_id"
     t.integer  "shoe_id"
     t.integer  "accessory_id"
+    t.integer  "profile_id"
   end
 
   add_index "outfits", ["accessory_id"], name: "index_outfits_on_accessory_id", using: :btree
   add_index "outfits", ["bottom_id"], name: "index_outfits_on_bottom_id", using: :btree
+  add_index "outfits", ["profile_id"], name: "index_outfits_on_profile_id", using: :btree
   add_index "outfits", ["shirt_id"], name: "index_outfits_on_shirt_id", using: :btree
   add_index "outfits", ["shoe_id"], name: "index_outfits_on_shoe_id", using: :btree
 
@@ -127,6 +129,7 @@ ActiveRecord::Schema.define(version: 20160624152602) do
   add_foreign_key "examples", "users"
   add_foreign_key "outfits", "accessories"
   add_foreign_key "outfits", "bottoms"
+  add_foreign_key "outfits", "profiles"
   add_foreign_key "outfits", "shirts"
   add_foreign_key "outfits", "shoes"
   add_foreign_key "profiles", "users"
