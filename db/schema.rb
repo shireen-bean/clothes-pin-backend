@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20160627150402) do
   add_index "examples", ["user_id"], name: "index_examples_on_user_id", using: :btree
 
   create_table "outfits", force: :cascade do |t|
-    t.date     "date_wear"
+    t.date     "wear_on"
     t.string   "description"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
