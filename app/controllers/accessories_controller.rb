@@ -43,6 +43,9 @@ class AccessoriesController < ApplicationController
   # DELETE /accessories/1
   # DELETE /accessories/1.json
   def destroy
+
+    @outfit = Outfit.where(accessory_id: @accessory.id)
+    @outfit.each {|outfit| Outfit.destroy(outfit)}
     @accessory.destroy
 
     head :no_content
