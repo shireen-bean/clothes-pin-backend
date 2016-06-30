@@ -27,3 +27,6 @@ curl --include --request POST http://localhost:3000/outfits \
         "profile_id": "5"
     }
 }'
+
+curl --include --request GET https://clothespin.herokuapp.com/outfits \
+--header "Content-Type: application/json" \
