@@ -1,11 +1,14 @@
 Backend client for Clothes Pin Client
 
-Data Base
+Front-end client: https://shkherad.github.io/close-pin-client/
+Back-end deployed at:  https://clothespin.herokuapp.com/
+
+DATA BASE:
 
 TABLES:
 
 User
-  profile_id
+  has: profile
 
 Profile
   to: user
